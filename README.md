@@ -5,6 +5,8 @@ This library only works on POSIX systems so it will not work natively on windows
 I plan on making this more like golang's net package as it's one of the most
 ergonomic
 
+## Building
+To build the library simply type `make static` for a static archive or `make shared` for a shared object
 
 ### Echo Server Example
 ```
