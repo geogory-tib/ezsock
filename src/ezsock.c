@@ -97,7 +97,7 @@ ezsock_conn dial_tcp(const char* host, short port,int flags){
   if(code < 0){
 	PANIC("INVALID ADDRESS");
   }
-  code = connect(ret.fd, (struct sockaddr *)casted_addr,sizeof(casted_addr->sin_addr));
+  code = connect(ret.fd, (struct sockaddr *)casted_addr,sizeof(*casted_addr));
   if(code < 0){
 	ret.closed = code;
 	return ret;

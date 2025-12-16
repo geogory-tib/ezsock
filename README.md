@@ -35,3 +35,38 @@ int main(void){
   return 0;
 }
 ```
+### Echo Server Client Example
+
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include "ezsock.h"
+#include <sys/socket.h>
+#include <unistd.h>
+#include <string.h>
+int main(void){
+  char buffer[4096];
+  memset(buffer,0,sizeof(buffer));
+  ezsock_conn conn = dial_tcp("127.0.0.1",8080,SO_REUSEADDR);
+  int n =  ezsock_conn_read(buffer,sizeof(buffer),&conn);
+  write(1,buffer,n);
+  for(;;){
+	n = read(0,buffer,sizeof(buffer));
+	ezsock_conn_write(buffer,n,&conn);
+	n = ezsock_conn_read(buffer,sizeof(buffer),&conn);
+	if(n == 0){
+	 break;
+	}
+	write(1,buffer,n);
+  }
+  ezsock_close(&conn,sizeof(conn));
+}
+```
+
+## Planned Features
+
+* Unix Domain Socket Support
+* UDP Support
+* C++ Wrapper
+* Buffered Connections
+
